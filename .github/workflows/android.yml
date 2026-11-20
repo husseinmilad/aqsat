@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'AqsatApp/**'
+      - 'AqsatApp (2)/**'
       - 'AqsatApp.zip'
       - '.github/workflows/android.yml'
   workflow_dispatch:
@@ -31,10 +32,12 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Extract Android project
+      - name: Prepare Android project
         run: |
-          test -s AqsatApp.zip
-          unzip -q AqsatApp.zip -d .
+          test -f "AqsatApp (2)/AqsatApp/settings.gradle.kts"
+          test -f "AqsatApp (2)/AqsatApp/app/build.gradle.kts"
+          rm -rf AqsatApp
+          cp -a "AqsatApp (2)/AqsatApp" AqsatApp
           test -f AqsatApp/settings.gradle.kts
           test -f AqsatApp/app/build.gradle.kts
 
